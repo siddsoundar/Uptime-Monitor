@@ -7,11 +7,11 @@ namespace Uptime_Monitor.Pages.Api
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UptimeController : ControllerBase
+    public class UptimePostController : ControllerBase
     {
         private readonly IMongoDatabase _database;
 
-        public UptimeController(IMongoDatabase database)
+        public UptimePostController(IMongoDatabase database)
         {
             _database = database;
         }

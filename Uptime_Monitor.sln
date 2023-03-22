@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uptime Monitor", "Uptime Monitor\Uptime Monitor.csproj", "{572DF9A2-BB5F-4AC0-9357-56EAEDE3948D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uptime_Monitor", "Uptime Monitor\Uptime_Monitor.csproj", "{572DF9A2-BB5F-4AC0-9357-56EAEDE3948D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

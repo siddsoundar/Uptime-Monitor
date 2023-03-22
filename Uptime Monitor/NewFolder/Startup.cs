@@ -3,31 +3,41 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
+using static Uptime_Monitor.Models.MonitoredUrlsRepository;
 
 namespace Uptime_Monitor
 {
     public class Startup
     {
-        private IConfiguration _config;
+        private readonly IConfiguration _configuration;
 
-        public Startup(IConfiguration config)
+        public Startup(IConfiguration configuration)
         {
-            _config = config;
+            _configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<UptimeMonitorDatabaseSettings>(
-                _config.GetSection(nameof(UptimeMonitorDatabaseSettings)));
+            // Configure the UptimeMonitorDatabaseSettings options class to use the "UptimeMonitorDatabaseSettings" section of the appsettings.json file
+            services.Configure<UptimeMonitorDatabaseSettings>(_configuration.GetSection("UptimeMonitorDatabaseSettings"));
 
+            // Register MongoClient as a singleton
             services.AddSingleton<IMongoClient>(serviceProvider =>
             {
                 var settings = serviceProvider.GetRequiredService<IOptions<UptimeMonitorDatabaseSettings>>();
                 return new MongoClient(settings.Value.ConnectionString);
             });
 
-            services.AddSingleton<IMonitoredUrlsDatabaseContext, MonitoredUrlsDatabaseContext>();
-            services.AddSingleton<IMonitoredUrlsRepository, MonitoredUrlsRepository>();
+            // Register MonitoredUrlsDatabaseContext and MonitoredUrlsRepository as scoped services
+            services.AddScoped<IMonitoredUrlsDatabaseContext, MonitoredUrlsDatabaseContext>();
+            services.AddScoped<IMonitoredUrlsRepository, MonitoredUrlsRepository>();
+
+            services.AddControllers();
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            // Omitted for brevity
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using MongoDB.Driver;
-using UptimeMonitor.Models;
+using Uptime_Monitor.Models;
 
 namespace Uptime_Monitor.Models
 {
-    public class MonitoredUrlsDatabaseContext
+    public class MonitoredUrlsDatabaseContext : IMonitoredUrlsDatabaseContext
     {
         private readonly IMongoDatabase _database;
 
@@ -15,4 +15,11 @@ namespace Uptime_Monitor.Models
 
         public IMongoCollection<MonitoredUrl> MonitoredUrls => _database.GetCollection<MonitoredUrl>("monitoredUrls");
     }
+
+
+    public interface IMonitoredUrlsDatabaseContext
+    {
+        IMongoCollection<MonitoredUrl> MonitoredUrls { get; }
+    }
+    
 }
